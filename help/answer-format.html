@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>答案数据格式指南 - LiteQ</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"DengXian Light","DengXian","Microsoft YaHei Light",sans-serif;color:#2c2c2c;background:#f8f6f0;line-height:1.8;padding:0}
+  .container{max-width:780px;margin:0 auto;padding:40px}
+  h1{font-size:20px;font-weight:400;letter-spacing:2px;margin-bottom:8px;text-align:center}
+  .sub{text-align:center;color:#666;font-size:13px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid #d0cec6}
+  .section{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #e0ddd4}
+  .section:last-child{border-bottom:none}
+  h2{font-size:14px;font-weight:400;letter-spacing:1.5px;color:#666;text-transform:uppercase;margin-bottom:14px}
+  h3{font-size:13px;font-weight:500;margin-bottom:8px;margin-top:16px}
+  p,li{font-size:13px;color:#2c2c2c;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  th,td{padding:8px 10px;border:1px solid #d0cec6;text-align:left}
+  th{background:#f3f1eb;font-weight:400;letter-spacing:0.5px;font-size:12px}
+  code,pre{font-family:"Consolas","Courier New",monospace;font-size:12px}
+  pre{background:#f3f1eb;border:1px solid #d0cec6;padding:16px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;margin:10px 0}
+  code{border:1px solid #d0cec6;background:#f3f1eb;padding:1px 5px;font-size:12px}
+  ul{padding-left:20px;font-size:13px;line-height:2}
+  li{margin-bottom:2px}
+  .note{border:1px solid #d0cec6;padding:14px;background:#f3f1eb;font-size:13px;margin-top:10px}
+  .example-box{border:1px solid #d0cec6;padding:16px;background:#fff;margin:10px 0}
+  .example-box .label{font-size:11px;color:#999;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase}
+  .back{text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid #d0cec6}
+  .back a{color:#2c2c2c;font-size:13px;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LiteQ 答案数据格式指南</h1>
+  <p class="sub">本指南说明如何按照实际调研结果填写问卷答案数据</p>
+
+  <div style="text-align:center;margin-bottom:20px;">
+    <button id="btn-copy-help" style="border:1px solid #d0cec6;background:#f3f1eb;padding:6px 18px;font-size:12px;font-family:inherit;cursor:pointer;letter-spacing:0.5px;color:#2c2c2c;">复制全文 (AI 提示词)</button>
+  </div>
+
+  <div class="back" style="margin-bottom:20px;padding-bottom:16px;">
+    <a href="/">← 返回 LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/question-format">查看问题格式指南 →</a>
+  </div>
+
+  <div class="section">
+    <h2>数据概览</h2>
+    <p>答案数据包含两部分：<strong>参与总人数</strong> 和 <strong>各题目各选项的选择人数</strong>。</p>
+    <p>所有数据应为非负整数（人数不能为负数或小数）。</p>
+  </div>
+
+  <div class="section">
+    <h2>逐题填写（手动方式）</h2>
+    <p>在 LiteQ 第二步"结果数据"中，系统会根据问卷结构自动生成输入表单：</p>
+    <ul>
+      <li>先填写 <strong>总人数</strong></li>
+      <li>每题的各选项会出现对应的输入框</li>
+      <li><strong>单选题 (sc)</strong>：显示该题剩余人数，各选项人数之和不得超过总人数</li>
+      <li><strong>多选题 (mc)</strong>：每个选项独立显示可剩人数，单个选项人数不得超过总人数</li>
+      <li><strong>问答题 (a)</strong>：无需数据输入</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>批量导入（快捷方式）</h2>
+    <p>如果你有现成的统计数据，点击"批量导入"按钮，使用以下格式粘贴数据：</p>
+
+    <pre>total: 总人数
+题1人数: 选项1人数 选项2人数 选项3人数 ...
+题2人数: 选项1人数 选项2人数 ...</pre>
+
+    <div class="example-box">
+      <div class="label">示例：通勤方式调查</div>
+      <pre>total: 150
+20 30 60 40
+50 25 75
+30 25 20 60 15</pre>
+    </div>
+
+    <p><strong>格式规则：</strong></p>
+    <ul>
+      <li>第一行 <code>total: 人数</code> 指定总人数</li>
+      <li>后续每行对应一道题（按问卷结构顺序）</li>
+      <li>每行为空格分隔的数字，数字顺序对应选项顺序</li>
+      <li>问答题 (a) 对应的行可以省略</li>
+      <li>每行数字个数必须与对应题目的选项数一致</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>完整示例</h2>
+    <p>假设有以下问卷结构：</p>
+    <pre>title 通勤方式调查
+des 了解上班族通勤情况
+
+sc 您的性别是
+  男
+  女
+
+sc 您每天通勤时间
+  30分钟以内
+  30-60分钟
+  60分钟以上
+
+mc 您使用过的交通方式
+  地铁
+  公交
+  私家车
+  骑行/步行
+  打车
+
+a 您对通勤有何建议</pre>
+
+    <div class="note" style="margin-bottom:12px;">
+      <strong>实际调研结果（150 人参与）：</strong>
+      <p>• 性别：男 80 人，女 70 人</p>
+      <p>• 通勤时间：30分钟以内 35 人，30-60分钟 65 人，60分钟以上 50 人</p>
+      <p>• 交通方式（多选）：地铁 90 人，公交 45 人，私家车 30 人，骑行/步行 55 人，打车 25 人</p>
+      <p>• 建议：开放式回答</p>
+    </div>
+
+    <p><strong>对应批量数据格式：</strong></p>
+    <pre>total: 150
+80 70
+35 65 50
+90 45 30 55 25</pre>
+
+    <p><strong>逐题填写时对应的输入表：</strong></p>
+    <table>
+      <tr><th>题目</th><th>选项</th><th>人数</th></tr>
+      <tr><td>1. 您的性别是 (单选)</td><td>男</td><td>80</td></tr>
+      <tr><td></td><td>女</td><td>70</td></tr>
+      <tr><td></td><td>剩余</td><td>0</td></tr>
+      <tr><td>2. 您每天通勤时间 (单选)</td><td>30分钟以内</td><td>35</td></tr>
+      <tr><td></td><td>30-60分钟</td><td>65</td></tr>
+      <tr><td></td><td>60分钟以上</td><td>50</td></tr>
+      <tr><td></td><td>剩余</td><td>0</td></tr>
+      <tr><td>3. 您使用过的交通方式 (多选)</td><td>地铁</td><td>90</td></tr>
+      <tr><td></td><td>公交</td><td>45</td></tr>
+      <tr><td></td><td>私家车</td><td>30</td></tr>
+      <tr><td></td><td>骑行/步行</td><td>55</td></tr>
+      <tr><td></td><td>打车</td><td>25</td></tr>
+      <tr><td colspan="2">3. 您对通勤有何建议 (问答)</td><td>开放式回答</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>数据校验规则</h2>
+    <ul>
+      <li>总人数必须大于 0</li>
+      <li>所有人数必须为非负整数</li>
+      <li>单选题各选项人数之和不得超过总人数</li>
+      <li>多选题单个选项人数不得超过总人数</li>
+      <li>多选题各选项人数之和可以超过总人数（因一人可选多项）</li>
+      <li>数据的行数和列数必须与问卷结构完全匹配</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>常见问题</h2>
+    <p><strong>Q：单选题的总和可以不等于总人数吗？</strong></p>
+    <p>A：可以。单选题总和应 ≤ 总人数，允许有人未作答。但如果总和超过总人数则会报错。</p>
+
+    <p><strong>Q：多选题的总和超过总人数正常吗？</strong></p>
+    <p>A：正常。多选题每人可选择多个选项，因此总选择次数可能超过总人数。</p>
+
+    <p><strong>Q：问答题的数据怎么填？</strong></p>
+    <p>A：问答题不统计人数，无需填写数据。系统会自动标注为"开放式回答"。</p>
+  </div>
+
+  <div class="back">
+    <a href="/">← 返回 LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/question-format">查看问题格式指南 →</a>
+  </div>
+</div>
+
+<script>
+document.getElementById('btn-copy-help').addEventListener('click', function() {
+  var md = '# LiteQ 答案数据格式指南\n\n';
+  md += '## 格式规则\n\n';
+  md += '- 第一行 `total: 人数` 指定参与总人数\n';
+  md += '- 后续每行对应一道题（按问卷结构顺序），用空格分隔各选项人数\n';
+  md += '- 问答题 (a) 对应的行可以省略\n';
+  md += '- 每行数字个数必须与对应题目的选项数一致\n';
+  md += '- 所有数据应为非负整数\n';
+  md += '- 单选题各选项人数之和不得超过总人数\n';
+  md += '- 多选题单个选项人数不得超过总人数\n\n';
+  md += '## 完整示例\n\n';
+  md += '问卷结构：\n\n';
+  md += '```\n';
+  md += 'title 通勤方式调查\n';
+  md += 'des 了解上班族通勤情况\n\n';
+  md += 'sc 您的性别是\n';
+  md += '  男\n';
+  md += '  女\n\n';
+  md += 'sc 您每天通勤时间\n';
+  md += '  30分钟以内\n';
+  md += '  30-60分钟\n';
+  md += '  60分钟以上\n\n';
+  md += 'mc 您使用过的交通方式\n';
+  md += '  地铁\n';
+  md += '  公交\n';
+  md += '  私家车\n';
+  md += '  骑行/步行\n';
+  md += '  打车\n\n';
+  md += 'a 您对通勤有何建议\n';
+  md += '```\n\n';
+  md += '对应答案数据格式：\n\n';
+  md += '```\n';
+  md += 'total: 150\n';
+  md += '80 70\n';
+  md += '35 65 50\n';
+  md += '90 45 30 55 25\n';
+  md += '```\n\n';
+  md += '## 任务要求\n\n';
+  md += '请根据以下问卷结构和实际调研人数，生成一份符合上述格式的答案数据：\n';
+  md += '我的要求：';
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(md).then(function() {
+      alert('已复制完整答案格式指南到剪贴板！\n\n粘贴到 AI 大模型后，在"我的要求："后面写上你的问卷结构和总人数即可。');
+    }).catch(function() { fallbackCopy(md); });
+  } else {
+    fallbackCopy(md);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('已复制完整答案格式指南到剪贴板！\n\n粘贴到 AI 大模型后，在"我的要求："后面写上你的问卷结构和总人数即可。');
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>问题格式指南 - LiteQ</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"DengXian Light","DengXian","Microsoft YaHei Light",sans-serif;color:#2c2c2c;background:#f8f6f0;line-height:1.8;padding:0}
+  .container{max-width:780px;margin:0 auto;padding:40px}
+  h1{font-size:20px;font-weight:400;letter-spacing:2px;margin-bottom:8px;text-align:center}
+  .sub{text-align:center;color:#666;font-size:13px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid #d0cec6}
+  .section{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #e0ddd4}
+  .section:last-child{border-bottom:none}
+  h2{font-size:14px;font-weight:400;letter-spacing:1.5px;color:#666;text-transform:uppercase;margin-bottom:14px}
+  p{font-size:13px;color:#2c2c2c;margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  td{padding:8px 10px;border-bottom:1px solid #e0ddd4;vertical-align:top}
+  td:first-child{width:100px;font-family:"Consolas","Courier New",monospace;font-size:13px}
+  code,pre{font-family:"Consolas","Courier New",monospace;font-size:12px}
+  pre{background:#f3f1eb;border:1px solid #d0cec6;padding:16px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;margin:10px 0}
+  code{border:1px solid #d0cec6;background:#f3f1eb;padding:1px 5px;font-size:12px}
+  ul{padding-left:20px;font-size:13px;line-height:2.2}
+  li{margin-bottom:2px}
+  .note{border:1px solid #d0cec6;padding:14px;background:#f3f1eb;font-size:13px;margin-top:10px}
+  .back{text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid #d0cec6}
+  .back a{color:#2c2c2c;font-size:13px;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LiteQ 问题格式指南</h1>
+  <p class="sub">本指南说明如何编写问卷调查的问题结构</p>
+  <div style="text-align:center;margin-bottom:20px;">
+    <button id="btn-copy-help" style="border:1px solid #d0cec6;background:#f3f1eb;padding:6px 18px;font-size:12px;font-family:inherit;cursor:pointer;letter-spacing:0.5px;color:#2c2c2c;">复制全文 (AI 提示词)</button>
+  </div>
+
+  <div class="back" style="margin-bottom:20px;padding-bottom:16px;">
+    <a href="/">← 返回 LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/answer-format">查看答案格式指南 →</a>
+  </div>
+
+  <div class="section">
+    <h2>语法总览</h2>
+    <p>LiteQ 使用简洁的纯文本格式定义问卷结构。关键字 <strong>不区分大小写</strong>，冒号 <strong>可选</strong>。</p>
+    <p>每个关键字占一行，后跟文本内容（中间可用冒号分隔，也可直接空格）。</p>
+  </div>
+
+  <div class="section">
+    <h2>关键字说明</h2>
+    <table>
+      <tr><td><code>title</code></td><td>问卷标题，整个文件只能出现一次。必填项。</td></tr>
+      <tr><td><code>des</code></td><td>问卷描述/说明，可选。显示在标题下方。</td></tr>
+      <tr><td><code>sc</code></td><td>单选题 (Single Choice)，下方缩进列出选项，至少 2 个选项。</td></tr>
+      <tr><td><code>mc</code></td><td>多选题 (Multiple Choice)，下方缩进列出选项，至少 2 个选项。</td></tr>
+      <tr><td><code>a</code></td><td>问答题 (Answer)，无选项，结果页显示文本输入区域。</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>格式规则</h2>
+    <ul>
+      <li><code>sc</code> 和 <code>mc</code> 的选项用 <strong>缩进</strong>（空格或 Tab）写在题目下方</li>
+      <li>选项前可用短横线 <code>-</code> 或星号 <code>*</code>，也可省略前缀</li>
+      <li>选项内容不能为空</li>
+      <li>同一题目的选项不能重复</li>
+      <li>题目之间用空行分隔更清晰（非必须）</li>
+      <li><code>a</code> 无需选项</li>
+      <li>题目按顺序自动编号为 1, 2, 3...</li>
+      <li>选项自动按 A, B, C... 顺序编号</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>完整示例</h2>
+    <pre>title 用户满意度调查
+des 本次调查旨在了解用户对我司产品的满意度
+
+sc 您的性别是
+  男
+  女
+
+sc 您的年龄段
+  18-25岁
+  26-35岁
+  36-45岁
+  45岁以上
+
+mc 您使用过我司哪些产品
+  产品A
+  产品B
+  产品C
+  产品D
+
+a 您对我们的产品有何建议</pre>
+  </div>
+
+  <div class="section">
+    <h2>关于 ae 关键字</h2>
+    <p><code>ae</code> 关键字曾用于表示"补充问答题"，现已统一为 <code>a</code>。如果使用 <code>ae</code>，系统会自动将其视为 <code>a</code> 处理。</p>
+  </div>
+
+  <div class="section">
+    <h2>搭配 AI 使用</h2>
+    <p>在 LiteQ 主界面点击"复制全文"按钮，会将完整语法说明、格式规则和示例一同复制到剪贴板。</p>
+    <p>粘贴到 AI 大模型后，在末尾写上你的问卷主题和需求，AI 即可生成符合 LiteQ 语法的问卷结构。</p>
+    <div class="note">例如：<em>请生成一份关于上班通勤方式的调查问卷，包含 5 道题</em></div>
+  </div>
+
+  <div class="back">
+    <a href="/">← 返回 LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/answer-format">查看答案格式指南 →</a>
+  </div>
+</div>
+
+<script>
+document.getElementById('btn-copy-help').addEventListener('click', function() {
+  var md = '# LiteQ 问卷语法指南\n\n';
+  md += '## 关键字说明\n\n';
+  md += '| 关键字 | 说明 |\n';
+  md += '|--------|------|\n';
+  md += '| title | 问卷标题，整个文件只能出现一次。必填项 |\n';
+  md += '| des | 问卷描述/说明，可选。显示在标题下方 |\n';
+  md += '| sc | 单选题，下方缩进列出选项，至少 2 个选项 |\n';
+  md += '| mc | 多选题，下方缩进列出选项，至少 2 个选项 |\n';
+  md += '| a | 问答题，无选项，结果页显示文本输入区域 |\n\n';
+  md += '## 格式规则\n\n';
+  md += '- 关键字不区分大小写，冒号可选\n';
+  md += '- sc 和 mc 的选项用缩进（空格或 Tab）写在题目下方\n';
+  md += '- 选项前可用短横线 `-` 或星号 `*`，也可省略前缀\n';
+  md += '- 选项内容不能为空，同一题目的选项不能重复\n';
+  md += '- 题目之间用空行分隔更清晰\n';
+  md += '- a 无需选项\n';
+  md += '- 题目按顺序自动编号，选项自动按 A, B, C... 顺序编号\n\n';
+  md += '## 完整示例\n\n';
+  md += '```\n';
+  md += 'title 用户满意度调查\n';
+  md += 'des 本次调查旨在了解用户对我司产品的满意度\n\n';
+  md += 'sc 您的性别是\n';
+  md += '  男\n';
+  md += '  女\n\n';
+  md += 'sc 您的年龄段\n';
+  md += '  18-25岁\n';
+  md += '  26-35岁\n';
+  md += '  36-45岁\n';
+  md += '  45岁以上\n\n';
+  md += 'mc 您使用过我司哪些产品\n';
+  md += '  产品A\n';
+  md += '  产品B\n';
+  md += '  产品C\n';
+  md += '  产品D\n\n';
+  md += 'a 您对我们的产品有何建议\n';
+  md += '```\n\n';
+  md += '## 任务要求\n\n';
+  md += '请根据以下主题，生成一份符合上述 LiteQ 语法的问卷结构：\n';
+  md += '我的要求：';
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(md).then(function() {
+      alert('已复制完整语法指南到剪贴板！\n\n粘贴到 AI 大模型后，在"我的要求："后面写上你的问卷主题即可。');
+    }).catch(function() { fallbackCopy(md); });
+  } else {
+    fallbackCopy(md);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('已复制完整语法指南到剪贴板！\n\n粘贴到 AI 大模型后，在"我的要求："后面写上你的问卷主题即可。');
+  }
+});
+</script>
+</body>
+</html>

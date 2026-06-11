@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LiteQ - MomsterTech</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="app-header">
+  <div class="logo">LiteQ - MomsterTech</div>
+  <div class="header-actions">
+    <button class="lang-toggle" id="btn-lang-toggle" data-i18n="lang.toggle">EN</button>
+    <button class="btn-help-header" id="btn-help-header" data-i18n-title="btn.help.title" title="语法帮助">?</button>
+    <button class="theme-toggle" id="theme-toggle" data-i18n-title="btn.theme.title" title="切换主题">
+      <span id="theme-icon">&#9681;</span>
+    </button>
+  </div>
+</header>
+
+<div class="step-nav">
+  <div class="step-item active" id="step-indicator-1">
+    <span class="step-num">1</span>
+    <span class="step-label" data-i18n="step1.label">问卷结构</span>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item" id="step-indicator-2">
+    <span class="step-num">2</span>
+    <span class="step-label" data-i18n="step2.label">结果数据</span>
+  </div>
+  <div class="step-connector"></div>
+  <div class="step-item" id="step-indicator-3">
+    <span class="step-num">3</span>
+    <span class="step-label" data-i18n="step3.label">输出</span>
+  </div>
+</div>
+
+<div class="main-container">
+
+  <!-- Step 1 -->
+  <div class="step-content active" id="step-1">
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+        <span data-i18n="step1.card.title">编辑问卷结构</span>
+        <div class="mode-toggle-group" data-for="step1">
+          <span class="mode-btn active" data-mode="source" data-i18n="step1.source">源代码</span>
+          <span class="mode-btn" data-mode="visual" data-i18n="step1.visual">可视化</span>
+        </div>
+      </div>
+      <textarea id="input-editor" class="editor-panel source-panel active" data-i18n-placeholder="step1.editor.placeholder" placeholder="Enter survey structure...&#10;title Survey Title&#10;des Survey Description&#10;&#10;sc Single Choice&#10;  Option 1&#10;  Option 2"></textarea>
+      <div id="vis-editor" class="editor-panel visual-panel"></div>
+      <div class="btn-row">
+        <button class="btn btn-sm" id="btn-preview" data-i18n="step1.preview.btn">预览</button>
+        <button class="btn btn-sm" id="btn-clear" data-i18n="step1.clear.btn">清空</button>
+        <button class="btn btn-primary" id="btn-parse" style="margin-left:auto;" data-i18n="step1.confirm.btn">确认</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title" data-i18n="step1.preview.card">预览</div>
+      <div class="preview-area" id="input-preview">
+        <div style="color:var(--text-secondary);font-size:13px;" data-i18n="step1.preview.empty">输入问卷结构后点击"预览"查看</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="step-content" id="step-2">
+    <div class="card">
+      <div class="card-title" data-i18n="step2.total.card">总人数</div>
+      <input type="number" id="total-input" min="1" step="1" data-i18n-placeholder="step2.total.placeholder" placeholder="输入总人数...">
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+        <span data-i18n="step2.data.card">各题数据</span>
+        <div class="mode-toggle-group" data-for="step2">
+          <span class="mode-btn active" data-mode="visual" data-i18n="step2.visual">可视化</span>
+          <span class="mode-btn" data-mode="source" data-i18n="step2.source">源代码</span>
+        </div>
+      </div>
+      <div id="result-inputs" class="editor-panel source-panel active"></div>
+      <div id="result-source-editor" class="editor-panel visual-panel batch-area">
+        <textarea id="batch-data" data-i18n-placeholder="step2.batch.placeholder" placeholder="total: 总人数&#10;选项1人数 选项2人数 ...&#10;(每行对应一道题，按顺序)"></textarea>
+        <div class="btn-row">
+          <button class="btn btn-sm" id="btn-batch-parse" data-i18n="step2.batch.parse">解析并填充</button>
+        </div>
+      </div>
+      <div id="result-errors" class="hidden"></div>
+      <div class="btn-row" style="margin-top:20px;">
+        <button class="btn" id="btn-result-back" data-i18n="step2.back">返回</button>
+        <button class="btn btn-primary" id="btn-result-next" data-i18n="step2.next">生成结果</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="step-content" id="step-3">
+    <div class="card">
+      <div class="card-title" data-i18n="step3.config.card">输出配置</div>
+      <div class="output-config">
+        <div>
+          <div class="config-label" data-i18n="step3.view.label">显示视图</div>
+          <div class="view-toggle-group">
+            <div class="view-toggle-item selected" data-view="questionnaire" data-i18n="step3.view.q">问卷形式</div>
+            <div class="view-toggle-item selected" data-view="table" data-i18n="step3.view.table">统计表格</div>
+            <div class="view-toggle-item selected" data-view="pie" data-i18n="step3.view.pie">饼图</div>
+            <div class="view-toggle-item selected" data-view="bar" data-i18n="step3.view.bar">条图</div>
+          </div>
+        </div>
+        <div class="page-control">
+          <label data-i18n="step3.perPage.label">每页题数</label>
+          <input type="number" id="per-page" min="0" step="1" value="0" placeholder="0=不分页">
+          <span class="config-label" style="margin-bottom:0;" data-i18n="step3.perPage.hint">(0 表示不分页)</span>
+        </div>
+        <div>
+          <div class="config-label" data-i18n="step3.report.label">报告设置</div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px 20px;margin-top:6px;">
+            <label class="config-toggle"><input type="checkbox" id="show-header" checked> <span data-i18n="step3.report.header">显示报告头</span></label>
+            <label class="config-toggle"><input type="checkbox" id="show-footer" checked> <span data-i18n="step3.report.footer">显示报告尾</span></label>
+            <label class="config-toggle"><input type="checkbox" id="show-watermark"> <span data-i18n="step3.report.watermark">水印</span></label>
+            <span style="font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:6px;">
+              <span data-i18n="step3.watermark.rows">行数:</span>
+              <input type="range" id="watermark-rows" min="0" max="30" value="5" step="1" style="width:60px;accent-color:var(--accent);">
+              <span id="watermark-rows-val" style="width:24px;text-align:right;font-variant-numeric:tabular-nums;">5</span>
+            </span>
+            <span style="font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:6px;">
+              <span data-i18n="step3.watermark.cols">列数:</span>
+              <input type="range" id="watermark-cols" min="2" max="20" value="6" step="1" style="width:60px;accent-color:var(--accent);">
+              <span id="watermark-cols-val" style="width:24px;text-align:right;font-variant-numeric:tabular-nums;">6</span>
+            </span>
+            <span style="font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:6px;">
+              <span data-i18n="step3.watermark.opacity">透明度:</span>
+              <input type="range" id="watermark-opacity" min="0" max="30" value="12" step="1" style="width:80px;accent-color:var(--accent);">
+              <span id="watermark-opacity-val" style="width:28px;text-align:right;font-variant-numeric:tabular-nums;">12%</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="result-doc-card">
+      <div class="output-preview" id="output-result"></div>
+    </div>
+
+    <div class="btn-row" style="margin-top:16px;">
+      <button class="btn" id="btn-back-to-2" data-i18n="step3.btn.backData">← 返回数据</button>
+      <button class="btn" id="btn-back-to-1" data-i18n="step3.btn.backStruct">← 返回结构</button>
+      <button class="btn" id="btn-copy-markdown" data-i18n="step3.btn.markdown">复制 Markdown</button>
+      <button class="btn btn-primary" id="btn-print" style="margin-left:auto;" data-i18n="step3.btn.print">打印</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/app.js"></script>
+<script src="js/step-input.js"></script>
+<script src="js/step-result.js"></script>
+<script src="js/step-output.js"></script>
+</body>
+</html>

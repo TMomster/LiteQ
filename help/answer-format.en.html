@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Answer Data Format Guide - LiteQ</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"DengXian Light","DengXian","Microsoft YaHei Light",sans-serif;color:#2c2c2c;background:#f8f6f0;line-height:1.8;padding:0}
+  .container{max-width:780px;margin:0 auto;padding:40px}
+  h1{font-size:20px;font-weight:400;letter-spacing:2px;margin-bottom:8px;text-align:center}
+  .sub{text-align:center;color:#666;font-size:13px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid #d0cec6}
+  .section{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #e0ddd4}
+  .section:last-child{border-bottom:none}
+  h2{font-size:14px;font-weight:400;letter-spacing:1.5px;color:#666;text-transform:uppercase;margin-bottom:14px}
+  h3{font-size:13px;font-weight:500;margin-bottom:8px;margin-top:16px}
+  p,li{font-size:13px;color:#2c2c2c;margin-bottom:8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  th,td{padding:8px 10px;border:1px solid #d0cec6;text-align:left}
+  th{background:#f3f1eb;font-weight:400;letter-spacing:0.5px;font-size:12px}
+  code,pre{font-family:"Consolas","Courier New",monospace;font-size:12px}
+  pre{background:#f3f1eb;border:1px solid #d0cec6;padding:16px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;margin:10px 0}
+  code{border:1px solid #d0cec6;background:#f3f1eb;padding:1px 5px;font-size:12px}
+  ul{padding-left:20px;font-size:13px;line-height:2}
+  li{margin-bottom:2px}
+  .note{border:1px solid #d0cec6;padding:14px;background:#f3f1eb;font-size:13px;margin-top:10px}
+  .example-box{border:1px solid #d0cec6;padding:16px;background:#fff;margin:10px 0}
+  .example-box .label{font-size:11px;color:#999;letter-spacing:0.5px;margin-bottom:6px;text-transform:uppercase}
+  .back{text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid #d0cec6}
+  .back a{color:#2c2c2c;font-size:13px;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LiteQ Answer Data Format Guide</h1>
+  <p class="sub">This guide explains how to fill in survey answer data based on actual survey results</p>
+
+  <div style="text-align:center;margin-bottom:20px;">
+    <button id="btn-copy-help" style="border:1px solid #d0cec6;background:#f3f1eb;padding:6px 18px;font-size:12px;font-family:inherit;cursor:pointer;letter-spacing:0.5px;color:#2c2c2c;">Copy Full Text (AI Prompt)</button>
+  </div>
+
+  <div class="back" style="margin-bottom:20px;padding-bottom:16px;">
+    <a href="/">← Back to LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/question-format.en">View Question Format Guide →</a>
+  </div>
+
+  <div class="section">
+    <h2>Data Overview</h2>
+    <p>Answer data consists of two parts: the <strong>total number of participants</strong> and the <strong>count of responses for each option of each question</strong>.</p>
+    <p>All values must be non-negative integers (counts cannot be negative or decimal).</p>
+  </div>
+
+  <div class="section">
+    <h2>Per-Question Entry (Manual)</h2>
+    <p>In Step 2 of LiteQ ("Result Data"), the system automatically generates input forms based on the survey structure:</p>
+    <ul>
+      <li>First, enter the <strong>total number of participants</strong></li>
+      <li>Each option for each question will have a corresponding input field</li>
+      <li><strong>Single Choice (sc)</strong>: Shows remaining count for that question; sum of all options must not exceed the total</li>
+      <li><strong>Multiple Choice (mc)</strong>: Each option independently shows available count; a single option's count must not exceed the total</li>
+      <li><strong>Open-ended (a)</strong>: No data input needed</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Batch Import (Quick Way)</h2>
+    <p>If you have existing statistics, click the "Parse & Fill" button and paste data using the following format:</p>
+
+    <pre>total: total_count
+q1_data: opt1_count opt2_count opt3_count ...
+q2_data: opt1_count opt2_count ...</pre>
+
+    <div class="example-box">
+      <div class="label">Example: Commute Mode Survey</div>
+      <pre>total: 150
+20 30 60 40
+50 25 75
+30 25 20 60 15</pre>
+    </div>
+
+    <p><strong>Format Rules:</strong></p>
+    <ul>
+      <li>First line <code>total: count</code> specifies the total number of participants</li>
+      <li>Each subsequent line corresponds to one question (in survey order)</li>
+      <li>Each line contains space-separated numbers corresponding to option order</li>
+      <li>Lines for open-ended questions (a) can be omitted</li>
+      <li>The number of values per line must match the number of options for that question</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Complete Example</h2>
+    <p>Consider the following survey structure:</p>
+    <pre>title Commute Mode Survey
+des Understand commuting habits
+
+sc What is your gender
+  Male
+  Female
+
+sc Daily commute time
+  Under 30 min
+  30-60 min
+  Over 60 min
+
+mc Transportation modes used
+  Subway
+  Bus
+  Car
+  Bike/Walk
+  Taxi
+
+a Suggestions for commuting</pre>
+
+    <div class="note" style="margin-bottom:12px;">
+      <strong>Actual Survey Results (150 participants):</strong>
+      <p>• Gender: Male 80, Female 70</p>
+      <p>• Commute time: Under 30 min 35, 30-60 min 65, Over 60 min 50</p>
+      <p>• Transportation (multiple): Subway 90, Bus 45, Car 30, Bike/Walk 55, Taxi 25</p>
+      <p>• Suggestions: Open-ended</p>
+    </div>
+
+    <p><strong>Corresponding Batch Data Format:</strong></p>
+    <pre>total: 150
+80 70
+35 65 50
+90 45 30 55 25</pre>
+
+    <p><strong>Per-Question Input Table:</strong></p>
+    <table>
+      <tr><th>Question</th><th>Option</th><th>Count</th></tr>
+      <tr><td>1. What is your gender (Single)</td><td>Male</td><td>80</td></tr>
+      <tr><td></td><td>Female</td><td>70</td></tr>
+      <tr><td></td><td>Remaining</td><td>0</td></tr>
+      <tr><td>2. Daily commute time (Single)</td><td>Under 30 min</td><td>35</td></tr>
+      <tr><td></td><td>30-60 min</td><td>65</td></tr>
+      <tr><td></td><td>Over 60 min</td><td>50</td></tr>
+      <tr><td></td><td>Remaining</td><td>0</td></tr>
+      <tr><td>3. Transportation modes (Multiple)</td><td>Subway</td><td>90</td></tr>
+      <tr><td></td><td>Bus</td><td>45</td></tr>
+      <tr><td></td><td>Car</td><td>30</td></tr>
+      <tr><td></td><td>Bike/Walk</td><td>55</td></tr>
+      <tr><td></td><td>Taxi</td><td>25</td></tr>
+      <tr><td colspan="2">4. Suggestions for commuting (Open)</td><td>Open-ended</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Validation Rules</h2>
+    <ul>
+      <li>Total must be greater than 0</li>
+      <li>All counts must be non-negative integers</li>
+      <li>For single-choice questions, the sum of all options must not exceed the total</li>
+      <li>For multiple-choice questions, a single option's count must not exceed the total</li>
+      <li>For multiple-choice questions, the sum of all options may exceed the total (since one person can select multiple options)</li>
+      <li>The number of rows and columns must match the survey structure exactly</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>FAQ</h2>
+    <p><strong>Q: Can the sum of single-choice options be less than the total?</strong></p>
+    <p>A: Yes. The single-choice sum should be ≤ total, allowing for unanswered questions. However, if the sum exceeds the total, an error will be reported.</p>
+
+    <p><strong>Q: Is it normal for the sum of multiple-choice options to exceed the total?</strong></p>
+    <p>A: Yes. In a multiple-choice question, each person can select multiple options, so the total number of selections may exceed the number of participants.</p>
+
+    <p><strong>Q: How do I fill in data for open-ended questions?</strong></p>
+    <p>A: Open-ended questions do not require numerical data. The system will automatically label them as "Open-ended."</p>
+  </div>
+
+  <div class="back">
+    <a href="/">← Back to LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/question-format.en">View Question Format Guide →</a>
+  </div>
+</div>
+
+<script>
+document.getElementById('btn-copy-help').addEventListener('click', function() {
+  var md = '# LiteQ Answer Data Format Guide\n\n';
+  md += '## Format Rules\n\n';
+  md += '- First line `total: count` specifies total participants\n';
+  md += '- Each subsequent line corresponds to one question (in survey order), with space-separated option counts\n';
+  md += '- Open-ended (a) lines can be omitted\n';
+  md += '- The number of values per line must match the number of options for that question\n';
+  md += '- All values must be non-negative integers\n';
+  md += '- Single-choice sum must not exceed total\n';
+  md += '- Multiple-choice individual option must not exceed total\n\n';
+  md += '## Complete Example\n\n';
+  md += 'Survey structure:\n\n';
+  md += '```\n';
+  md += 'title Commute Mode Survey\n';
+  md += 'des Understand commuting habits\n\n';
+  md += 'sc What is your gender\n';
+  md += '  Male\n';
+  md += '  Female\n\n';
+  md += 'sc Daily commute time\n';
+  md += '  Under 30 min\n';
+  md += '  30-60 min\n';
+  md += '  Over 60 min\n\n';
+  md += 'mc Transportation modes used\n';
+  md += '  Subway\n';
+  md += '  Bus\n';
+  md += '  Car\n';
+  md += '  Bike/Walk\n';
+  md += '  Taxi\n\n';
+  md += 'a Suggestions for commuting\n';
+  md += '```\n\n';
+  md += 'Corresponding answer data format:\n\n';
+  md += '```\n';
+  md += 'total: 150\n';
+  md += '80 70\n';
+  md += '35 65 50\n';
+  md += '90 45 30 55 25\n';
+  md += '```\n\n';
+  md += '## Task Requirements\n\n';
+  md += 'Please generate answer data conforming to the above format based on the following survey structure and actual participant count:\n';
+  md += 'My requirement:';
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(md).then(function() {
+      alert('Copied full answer format guide to clipboard!\n\nPaste into AI model, then write your survey structure and total after "My requirement:".');
+    }).catch(function() { fallbackCopy(md); });
+  } else {
+    fallbackCopy(md);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Copied full answer format guide to clipboard!\n\nPaste into AI model, then write your survey structure and total after "My requirement:".');
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Question Format Guide - LiteQ</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:"DengXian Light","DengXian","Microsoft YaHei Light",sans-serif;color:#2c2c2c;background:#f8f6f0;line-height:1.8;padding:0}
+  .container{max-width:780px;margin:0 auto;padding:40px}
+  h1{font-size:20px;font-weight:400;letter-spacing:2px;margin-bottom:8px;text-align:center}
+  .sub{text-align:center;color:#666;font-size:13px;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid #d0cec6}
+  .section{margin-bottom:28px;padding-bottom:20px;border-bottom:1px solid #e0ddd4}
+  .section:last-child{border-bottom:none}
+  h2{font-size:14px;font-weight:400;letter-spacing:1.5px;color:#666;text-transform:uppercase;margin-bottom:14px}
+  p{font-size:13px;color:#2c2c2c;margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:10px 0}
+  td{padding:8px 10px;border-bottom:1px solid #e0ddd4;vertical-align:top}
+  td:first-child{width:100px;font-family:"Consolas","Courier New",monospace;font-size:13px}
+  code,pre{font-family:"Consolas","Courier New",monospace;font-size:12px}
+  pre{background:#f3f1eb;border:1px solid #d0cec6;padding:16px;line-height:1.7;white-space:pre-wrap;overflow-x:auto;margin:10px 0}
+  code{border:1px solid #d0cec6;background:#f3f1eb;padding:1px 5px;font-size:12px}
+  ul{padding-left:20px;font-size:13px;line-height:2.2}
+  li{margin-bottom:2px}
+  .note{border:1px solid #d0cec6;padding:14px;background:#f3f1eb;font-size:13px;margin-top:10px}
+  .back{text-align:center;margin-top:32px;padding-top:20px;border-top:1px solid #d0cec6}
+  .back a{color:#2c2c2c;font-size:13px;letter-spacing:0.5px}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>LiteQ Question Format Guide</h1>
+  <p class="sub">This guide explains how to write survey question structures</p>
+  <div style="text-align:center;margin-bottom:20px;">
+    <button id="btn-copy-help" style="border:1px solid #d0cec6;background:#f3f1eb;padding:6px 18px;font-size:12px;font-family:inherit;cursor:pointer;letter-spacing:0.5px;color:#2c2c2c;">Copy Full Text (AI Prompt)</button>
+  </div>
+
+  <div class="back" style="margin-bottom:20px;padding-bottom:16px;">
+    <a href="/">← Back to LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/answer-format.en">View Answer Format Guide →</a>
+  </div>
+
+  <div class="section">
+    <h2>Syntax Overview</h2>
+    <p>LiteQ uses a simple plain-text format to define survey structures. Keywords are <strong>case-insensitive</strong>, and colons are <strong>optional</strong>.</p>
+    <p>Each keyword goes on its own line, followed by the content (separated by a colon or space).</p>
+  </div>
+
+  <div class="section">
+    <h2>Keyword Reference</h2>
+    <table>
+      <tr><td><code>title</code></td><td>Survey title, appears only once. Required.</td></tr>
+      <tr><td><code>des</code></td><td>Survey description, optional. Displayed below the title.</td></tr>
+      <tr><td><code>sc</code></td><td>Single Choice question, list options below with indentation. At least 2 options.</td></tr>
+      <tr><td><code>mc</code></td><td>Multiple Choice question, list options below with indentation. At least 2 options.</td></tr>
+      <tr><td><code>a</code></td><td>Open-ended question, no options. Displays a text input area on the results page.</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Format Rules</h2>
+    <ul>
+      <li>For <code>sc</code> and <code>mc</code>, list options with <strong>indentation</strong> (spaces or tabs) below the question</li>
+      <li>Options may be prefixed with a dash <code>-</code> or asterisk <code>*</code>, or no prefix at all</li>
+      <li>Option content cannot be empty</li>
+      <li>Duplicate options within the same question are not allowed</li>
+      <li>Separate questions with blank lines for clarity (not required)</li>
+      <li><code>a</code> needs no options</li>
+      <li>Questions are numbered automatically as 1, 2, 3...</li>
+      <li>Options are labeled automatically as A, B, C...</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Complete Example</h2>
+    <pre>title User Satisfaction Survey
+des This survey aims to understand user satisfaction with our products
+
+sc What is your gender
+  Male
+  Female
+
+sc What is your age group
+  18-25
+  26-35
+  36-45
+  45+
+
+mc Which of our products have you used
+  Product A
+  Product B
+  Product C
+  Product D
+
+a Do you have any suggestions for our products</pre>
+  </div>
+
+  <div class="section">
+    <h2>About the ae Keyword</h2>
+    <p>The <code>ae</code> keyword was previously used for "additional open-ended questions" and has been merged into <code>a</code>. If <code>ae</code> is used, it will be treated as <code>a</code> automatically.</p>
+  </div>
+
+  <div class="section">
+    <h2>Using with AI</h2>
+    <p>Click the "Copy Full Text" button on the main LiteQ interface to copy the complete syntax guide, format rules, and example to your clipboard.</p>
+    <p>Paste into an AI model, then write your survey topic and requirements at the end. The AI will generate a survey structure that conforms to LiteQ syntax.</p>
+    <div class="note">Example: <em>Please generate a survey about commuting habits with 5 questions</em></div>
+  </div>
+
+  <div class="back">
+    <a href="/">← Back to LiteQ</a> &nbsp;|&nbsp;
+    <a href="/help/answer-format.en">View Answer Format Guide →</a>
+  </div>
+</div>
+
+<script>
+document.getElementById('btn-copy-help').addEventListener('click', function() {
+  var md = '# LiteQ Survey Syntax Guide\n\n';
+  md += '## Keyword Reference\n\n';
+  md += '| Keyword | Description |\n';
+  md += '|---------|-------------|\n';
+  md += '| title | Survey title, required. Appears once |\n';
+  md += '| des | Survey description, optional. Displayed below title |\n';
+  md += '| sc | Single Choice question, at least 2 options |\n';
+  md += '| mc | Multiple Choice question, at least 2 options |\n';
+  md += '| a | Open-ended question, no options |\n\n';
+  md += '## Format Rules\n\n';
+  md += '- Keywords are case-insensitive, colons are optional\n';
+  md += '- sc and mc options use indentation (spaces or tabs) below the question\n';
+  md += '- Options may be prefixed with `-` or `*`, or no prefix\n';
+  md += '- Option content cannot be empty, no duplicate options in the same question\n';
+  md += '- Separate questions with blank lines for clarity\n';
+  md += '- a needs no options\n';
+  md += '- Questions are numbered automatically, options labeled as A, B, C...\n\n';
+  md += '## Complete Example\n\n';
+  md += '```\n';
+  md += 'title User Satisfaction Survey\n';
+  md += 'des This survey aims to understand user satisfaction\n\n';
+  md += 'sc What is your gender\n';
+  md += '  Male\n';
+  md += '  Female\n\n';
+  md += 'sc What is your age group\n';
+  md += '  18-25\n';
+  md += '  26-35\n';
+  md += '  36-45\n';
+  md += '  45+\n\n';
+  md += 'mc Which of our products have you used\n';
+  md += '  Product A\n';
+  md += '  Product B\n';
+  md += '  Product C\n';
+  md += '  Product D\n\n';
+  md += 'a Do you have any suggestions\n';
+  md += '```\n\n';
+  md += '## Task Requirements\n\n';
+  md += 'Please generate a survey structure that conforms to the above LiteQ syntax for the following topic:\n';
+  md += 'My requirement:';
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(md).then(function() {
+      alert('Copied full syntax guide to clipboard!\n\nPaste into AI model, then write your survey topic after "My requirement:".');
+    }).catch(function() { fallbackCopy(md); });
+  } else {
+    fallbackCopy(md);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('Copied full syntax guide to clipboard!\n\nPaste into AI model, then write your survey topic after "My requirement:".');
+  }
+});
+</script>
+</body>
+</html>

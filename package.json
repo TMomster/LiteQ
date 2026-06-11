@@ -1,0 +1,13 @@
+{
+  "name": "liteq",
+  "version": "2.0.0",
+  "description": "LiteQ - 问卷调查结果生成器 (Node.js 重构版)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

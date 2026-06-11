@@ -1,0 +1,144 @@
+LiteQ - 问卷调查结果生成器
+Copyright (C) MomsterTech
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+See the LICENSE file for the full license text.
+
+---
+
+Third-Party Notices
+===================
+
+This project incorporates components from the following open source
+projects.  The original copyright notices and licenses are reproduced
+below as required by the applicable licenses.
+
+---
+
+1. Express.js (https://expressjs.com/)
+   Version: ^4.21.0
+   License: MIT
+   Copyright (c) 2009-2014 TJ Holowaychuk <tj@vision-media.ca>
+   Copyright (c) 2013-2014 Roman Shtylman <shtylman+expressjs@gmail.com>
+   Copyright (c) 2014-2015 Douglas Christopher Wilson <doug@somethingdoug.com>
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+   THE SOFTWARE.
+
+---
+
+2. Chart.js (https://www.chartjs.org/)
+   Version: 4.4.7
+   License: MIT
+   Copyright (c) 2014-2024 Chart.js Contributors
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+   THE SOFTWARE.
+
+---
+
+3. Express transitive dependencies
+   The following packages are dependencies of Express.js, each licensed under
+   MIT, ISC, or BSD-3-Clause.  Full license texts are available in the
+   node_modules directory or at the respective project repositories.
+
+   - accepts (MIT)
+   - array-flatten (MIT)
+   - body-parser (MIT)
+   - bytes (MIT)
+   - content-disposition (MIT)
+   - content-type (MIT)
+   - cookie (MIT)
+   - cookie-signature (MIT)
+   - debug (MIT)
+   - depd (MIT)
+   - destroy (MIT)
+   - ee-first (MIT)
+   - encodeurl (MIT)
+   - escape-html (MIT)
+   - etag (MIT)
+   - finalhandler (MIT)
+   - fresh (MIT)
+   - http-errors (MIT)
+   - iconv-lite (MIT)
+   - inherits (ISC)
+   - ipaddr.js (MIT)
+   - media-typer (MIT)
+   - merge-descriptors (MIT)
+   - methods (MIT)
+   - mime (MIT)
+   - mime-db (MIT)
+   - mime-types (MIT)
+   - ms (MIT)
+   - negotiator (MIT)
+   - on-finished (MIT)
+   - parseurl (MIT)
+   - path-to-regexp (MIT)
+   - proxy-addr (MIT)
+   - qs (BSD-3-Clause)
+   - range-parser (MIT)
+   - raw-body (MIT)
+   - safe-buffer (MIT)
+   - safer-buffer (MIT)
+   - send (MIT)
+   - serve-static (MIT)
+   - setprototypeof (ISC)
+   - side-channel (MIT)
+   - statuses (MIT)
+   - type-is (MIT)
+   - unpipe (MIT)
+   - utils-merge (MIT)
+   - vary (MIT)
+
+---
+
+Additional Requirement for Derivative Works
+============================================
+
+Any derivative work, modified version, or project that incorporates
+LiteQ code (in whole or in part, including but not limited to
+forking, embedding, secondary development, tertiary development, etc.)
+must, in addition to complying with the AGPL v3 license, include a
+prominent notice in the user interface, documentation, or source code
+README that acknowledges the use of LiteQ and provides a direct link
+to the original LiteQ repository:
+
+   "This software uses LiteQ (https://github.com/MomsterTech/LiteQ)"
+
+This requirement does not expand or alter the scope of the AGPL v3
+license but is provided as a best-practice attribution guideline for
+all users and contributors.
